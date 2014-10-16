@@ -63,5 +63,6 @@ RepoMan.prototype.init = function() {
 window.onload = app;
 
 function app() {
-    var myRepo = new RepoMan('matthiasak');
+    var Matt = new RepoMan('matthiasak');
 }
+

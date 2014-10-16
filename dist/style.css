@@ -8,6 +8,9 @@
     font-size: 0px; /* keeps spaces between the grid elements to size 0 */
     text-align: justify; /* spreads the grid items out on the horizontal line */
     position: relative;
+    width: 80%;
+    text-align: center;
+    margin: auto;
 }
 
 /* needed to make the grid elements justify themselves */
@@ -41,8 +44,14 @@
 @media (min-width: 650px){
     /*.grid-2-800-smaller > * { width: 31%; }*/
     /*.grid-2-800-larger > * { width: 62%; } */
-    .left-column { width: calc(100%/3); }
-    .right-column { width: calc(100%/3*2); }
+    .left-column { 
+        width: 28%;
+        margin: 1%;
+     }
+    .right-column { 
+        width: 64%;
+        margin: 1%;
+     }
 }
 
 /* less re-usable styles are put into another CSS class so that I can reuse .grid on other parts of a site */
@@ -56,6 +65,7 @@
 .left-column {
     background-color: chartreuse;
     min-height: 400px;
+
     /*width: calc(100%/3);*/
 }
 
@@ -68,6 +78,7 @@
 
 .left-column p + p {
     text-indent: 0;
+
 }
 
 .right-column p + p {
@@ -77,4 +88,23 @@
 .repos {
     border-top: 1px black solid;
     min-height: 100px;
+}
+
+img {
+    max-width: 100%;
+    margin: auto;
+    display: block;
+    margin-bottom: 4%;
+}
+
+.profile > h4 h5 {
+    color: #222;
+}
+
+.profile_info {
+    margin-left: 2%;
+}
+
+.profile_info hr {
+    margin-left: -2%;
 }

@@ -1,4 +1,5 @@
 _.templateSettings.interpolate = /{([\s\S]+?)}/g;
+// _.templateSettings.interpolate = /{([\s\S]+?)}/g;
 
 function getUserName(gitHubUsername) {
 	this.username = gitHubUsername;
@@ -16,17 +17,19 @@ function getUserName(gitHubUsername) {
 // These 2 functions on the getUserName prototype are getting
 // data from the GitHub API.
 getUserName.prototype.getUserInfo = function() {
-	return
-	$.get('https://api.github.com/users/' + this.username) // this.username is equal to the instance object with the value of username we passed in as an argument
+	return $.get('https://api.github.com/users/' + this.username) // this.username is equal to the instance object with the value of username we passed in as an argument
 	.then(function(data, successMessage, promise) { // why does this then take these 3 args, but the one after .when takes different ones?
+		// debugger;
+		// console.log(data);
 		return data;
 	});
 };
 
 
 getUserName.prototype.getRepoInfo = function(){
-	return $.get('https://api.github.com/users/' + this.username + '/repos')
+	return $.get('https://api.github.com/users/' + this.username + '/repos?per_page=500')
 	.then(function(data){
+		console.log(data.length)
 		return data;
 	});
 };
@@ -36,29 +39,48 @@ getUserName.prototype.getRepoInfo = function(){
 // into its argument and returning them as a variable. I suppose that
 // it is using Express to request the files. It's like our own
 // API.
-getUserName.prototype.loadTemplateFile
+getUserName.prototype.loadTemplateFile = function(templateName) {
+	return $.get('./templates/' + templateName + '.html')
+	.then(function(htmlString){
+		return htmlString;
+	});
+};
 
 
 // These 2 functions are responsible for injecting the 
 // GitHub API data into the appropriate HTML files served up
 // by our loadTemplateFile function
-getUserName.prototype.putProfileDataOnPage
+getUserName.prototype.putProfileDataOnPage = function(profileHtml, profile) {
+	var d = new Date(profile.created_at);
+	profile.joined = ["Joined on ", d.toDateString()].join("");
+	document.querySelector('.left-column').innerHTML = 
+	_.template(profileHtml, profile);
+};
 
 
-getUserName.prototype.putRepoDataOnPage
+getUserName.prototype.putRepoDataOnPage = function(repoHtml, repos) {
+	console.log(repoHtml);
+	document.querySelector('.right-column').innerHTML = 
+	repos.map(function(element){
+		var d = new Date(element.updated_at);
+		element.updated = "Updated on " + d.toDateString();
+		return _.template(repoHtml, element);
+	}).join("");
+};
 
 // This init function is called by the getUserName constructor
 // when an instance is created and calls all the previously
 // defined methods on the getUserName instance.
 getUserName.prototype.init = function() {
 	var self = this;
-
 	$.when(
 		this.getUserInfo(),
-
-	).then(function() {
-		self.putProfileDataOnPage
-		self.putRepoDataOnPage
+		this.getRepoInfo(),
+		this.loadTemplateFile('profile'),
+		this.loadTemplateFile('repo')
+	).then(function(profile, repos, profileHtml, repoHtml) {
+		self.putProfileDataOnPage(profileHtml, profile)
+		self.putRepoDataOnPage(repoHtml, repos)
 	});
 };
 

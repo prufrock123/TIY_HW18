@@ -32,7 +32,6 @@ getUserName.prototype.getRepoInfo = function(){
 };
 
 
-
 // This function is simply loading the html templates we pass 
 // into its argument and returning them as a variable. I suppose that
 // it is using Express to request the files. It's like our own

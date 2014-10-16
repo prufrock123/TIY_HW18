@@ -18,13 +18,18 @@ function getUserName(gitHubUsername) {
 getUserName.prototype.getUserInfo = function() {
 	return
 	$.get('https://api.github.com/users/' + this.username) // this.username is equal to the instance object with the value of username we passed in as an argument
-	.then(function(data, successMessage, promise) { // the 
+	.then(function(data, successMessage, promise) { // why does this then take these 3 args, but the one after .when takes different ones?
 		return data;
-	})
-}
+	});
+};
 
 
-getUserName.prototype.getRepoInfo
+getUserName.prototype.getRepoInfo = function(){
+	return $.get('https://api.github.com/users/' + this.username + '/repos')
+	.then(function(data){
+		return data;
+	});
+};
 
 
 

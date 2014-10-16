@@ -1,0 +1,63 @@
+/* keeps the padding growing inwards */
+*, *::before, *::after {
+    -moz-box-sizing: border-box;
+         box-sizing: border-box;
+}
+
+.grid {
+    font-size: 0px; /* keeps spaces between the grid elements to size 0 */
+    text-align: justify; /* spreads the grid items out on the horizontal line */
+    position: relative;
+}
+
+/* needed to make the grid elements justify themselves */
+.grid::after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+}
+
+.grid > * {
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+    font-size: medium; /* reset the font size since it was set to 0px inside the grid */
+    vertical-align: top;
+    -webkit-transition: all .25s ease;
+            transition: all .25s ease;
+}
+
+/*
+    add a media query to handle screensizes, note the semantic name I chose to give this CSS class:
+
+    .grid- "a grid class"
+    -2- "2 columns"
+    -480 "when the screen is atleast 480px wide"
+*/
+/*@media (min-width: 480px){
+    .grid-2-480 > * { width: 47%; }
+}*/
+
+@media (min-width: 500px){
+    .grid-2-800-smaller > * { width: 31%; }
+    .grid-2-800-larger > * { width: 62%; } 
+}
+
+/* less re-usable styles are put into another CSS class so that I can reuse .grid on other parts of a site */
+.purple-grid > * {
+    background-color: purple;
+    padding: 2em;
+    color: white;
+    margin-bottom: 2em;
+}
+
+.left-column {
+    background-color: chartreuse;
+    min-height: 400px;
+}
+
+.right-column {
+    background-color: salmon;
+    min-height: 400px;
+}
+

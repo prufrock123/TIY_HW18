@@ -8,7 +8,7 @@
     font-size: 0px; /* keeps spaces between the grid elements to size 0 */
     text-align: justify; /* spreads the grid items out on the horizontal line */
     position: relative;
-    width: 80%;
+    width: 100%;
     text-align: center;
     margin: auto;
 }
@@ -41,9 +41,13 @@
     .grid-2-480 > * { width: 47%; }
 }*/
 
-@media (min-width: 650px){
+@media (min-width: 750px){
     /*.grid-2-800-smaller > * { width: 31%; }*/
     /*.grid-2-800-larger > * { width: 62%; } */
+    .grid {
+        width: 80%;
+    }
+
     .left-column { 
         width: 28%;
         margin: 1%;

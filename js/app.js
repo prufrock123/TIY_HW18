@@ -6,6 +6,7 @@ function getUserName(gitHubUsername) {
 
 	this.init();
 }
+
 // Create a bunch of functions on the getUserName prototype
 // that will be available for use by the instance (cookie) of 
 // the getUserName object. The second step of the getUserName
@@ -29,7 +30,7 @@ getUserName.prototype.getUserInfo = function() {
 getUserName.prototype.getRepoInfo = function(){
 	return $.get('https://api.github.com/users/' + this.username + '/repos?per_page=500')
 	.then(function(data){
-		console.log(data.length)
+		// console.log(data.length)
 		return data;
 	});
 };
@@ -95,3 +96,5 @@ function app() {
 	//create an instance of getUserName using it's constructor
 	var user = new getUserName('prufrock123');
 }
+
+console.dir(getUserName);
